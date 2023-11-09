@@ -3,37 +3,41 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("身長（センチメートル）を入力してください: ");
-        double senti = scanner.nextDouble();
-        System.out.print("体重（キログラム）を入力してください: ");
-        double weight = scanner.nextDouble();
 
-        //メートルになおす
-        double meitoru = senti / 100.0;
+        for (int i = 1; i <= 2; i++) {
+            System.out.print(i +"人目" + ": 身長（センチメートル）を入力してください: ");
+            double senti = scanner.nextDouble();
+            System.out.print(i + "人目" + ": 体重（キログラム）を入力してください: ");
+            double weight = scanner.nextDouble();
 
-        // BMIを計算
-        double bmi = calculateBMI(meitoru, weight);
+            // センチメートルをメートルに変換
+            double meitoru = senti / 100.0;
 
-        // 適正体重を計算
-        double healthyWeight = calculateHealthyWeight(meitoru);
+            // BMIを計算
+            double bmi = calculateBMI(meitoru, weight);
 
-        // BMIと適正体重を出力
-        System.out.printf("あなたのBMIは %.2f です。\n", bmi);
-        System.out.printf("適正体重は %.2f キログラムです。\n", healthyWeight);
+            double healthyWeight = calculateHealthyWeight(meitoru);
 
-        if (bmi < 18.5) {
-            System.out.println("BMIが18.5未満です。適正体重に近づけるために食事と運動に気を付けましょう。");
-        } else if (bmi < 25) {
-            System.out.println("BMIが適正範囲です。健康な生活を続けましょう。");
-        } else {
-            System.out.println("BMIが25以上です。適正体重に近づけるために食事と運動に気を付けましょう。");
+            System.out.println(i + "人目" + ": あなたのBMIは " + String.format("%.2f", bmi) + " です。");
+            System.out.println(i + "人目" + ": 適正体重は " + String.format("%.2f", healthyWeight) + " kgです。");
+
+
+            if (bmi < 18.5) {
+                System.out.println(i + "人目" +": BMIが18.5未満です。適正体重に近づけるために食事と運動に気を付けましょう.");
+            } else if (bmi >= 18.5 && bmi < 25) {
+                System.out.println(i + "人目" + ": BMIが適正範囲です。健康な生活を続けましょう.");
+            } else {
+                System.out.println(i + "人目" + ": BMIが25以上です。適正体重に近づけるために食事と運動に気を付けましょう.");
+            }
         }
     }
 
+    
     public static double calculateBMI(double height, double weight) {
         return weight / (height * height);
     }
 
+ 
     public static double calculateHealthyWeight(double height) {
         return 22 * height * height;
     }
